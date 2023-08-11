@@ -5,6 +5,7 @@ const connectDB=require("./config/db");
 const app=express();
 
 app.use(express.json({extended:false}));
+
 //connec to DB
 connectDB();
 
