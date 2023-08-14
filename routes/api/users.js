@@ -7,6 +7,11 @@ const config=require("config");
 const bcrypt =require("bcryptjs");
 
 const User =require('../../models/User.js');
+async function importNormalize()
+{
+    const normalize = await import("normalize-url");
+}
+importNormalize();
 
 // @route           POST api/users
 // @description     Register Users
@@ -38,11 +43,14 @@ async (req,res)=>{
        return res.status(400).json({errors:[{msg:"User already exits"}]});
     }
     //Get user gravatar
-    const avatar=gravatar.url(email,{
-        s:'200',
-        r:'pg',
-        d:'mm'
-    });
+    const avatar = normalize(
+        gravatar.url(email, {
+          s: '200',
+          r: 'pg',
+          d: 'mm'
+        }),
+        { forceHttps: true }
+      );
 
     user=new User({
         name,
