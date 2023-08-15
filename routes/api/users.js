@@ -7,11 +7,7 @@ const config=require("config");
 const bcrypt =require("bcryptjs");
 
 const User =require('../../models/User.js');
-async function importNormalize()
-{
-    const normalize = await import("normalize-url");
-}
-importNormalize();
+
 
 // @route           POST api/users
 // @description     Register Users
@@ -23,10 +19,12 @@ router.post("/",[
     check('password',"Please enter a password with 6 or more characters").isLength({min:6})
 ],
 async (req,res)=>{
+    // console.log("users->",req.body);
     const errors=validationResult(req);
 
     if(!errors.isEmpty())
     {
+        console.log("check error");
         return res.status(400).json({error:errors.array()});
     }
 
@@ -43,14 +41,12 @@ async (req,res)=>{
        return res.status(400).json({errors:[{msg:"User already exits"}]});
     }
     //Get user gravatar
-    const avatar = normalize(
+    const avatar = 
         gravatar.url(email, {
           s: '200',
           r: 'pg',
           d: 'mm'
-        }),
-        { forceHttps: true }
-      );
+        });
 
     user=new User({
         name,
@@ -90,7 +86,7 @@ async (req,res)=>{
     }
     catch(err)
     {
-        // console.error(err);
+        console.error(err);
         res.status(500).send("Server Error");
     }
     

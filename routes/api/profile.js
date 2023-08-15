@@ -6,11 +6,6 @@ const Profile = require("../../models/Profile");
 const {check,validationResult} = require("express-validator");
 const axios = require('axios');
 const config = require('config');
-async function importNormalize()
-{
-    const normalize = await import("normalize-url");
-}
-importNormalize();
 const User = require("../../models/User");
 
 // @route    GET api/profile/me
@@ -64,7 +59,7 @@ async (req,res)=>{
     if(company) profileFields.company=company;
     if(website) 
     {
-        profileFields.website= website === '' ? '' : normalize(website, { forceHttps: true })
+        profileFields.website= website;
     }
     if(location) profileFields.location=location;
     if(bio) profileFields.bio=bio;
@@ -78,11 +73,11 @@ async (req,res)=>{
 
     // BUILD SOCIAL OBJECT 
     profileFields.social={};
-    if(youtube) profileFields.social.youtube=normalize(youtube, { forceHttps: true });
-    if(twitter) profileFields.social.twitter=normalize(twitter, { forceHttps: true });
-    if(facebook) profileFields.social.facebook=normalize(facebook, { forceHttps: true });
-    if(instagram) profileFields.social.instagram=normalize(instagram, { forceHttps: true });
-    if(linkedin) profileFields.social.linkedin=normalize(linkedin, { forceHttps: true });
+    if(youtube) profileFields.social.youtube=(youtube);
+    if(twitter) profileFields.social.twitter=(twitter);
+    if(facebook) profileFields.social.facebook=(facebook);
+    if(instagram) profileFields.social.instagram=(instagram);
+    if(linkedin) profileFields.social.linkedin=(linkedin);
 
     try{
         let profile=await Profile.findOne({user:req.user.id});

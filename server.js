@@ -1,10 +1,13 @@
 const express =require("express");
 const connectDB=require("./config/db");
+var cors = require('cors')
 
 
 const app=express();
 
-app.use(express.json({extended:false}));
+app.use(express.json({extended:true}));
+
+app.use(cors()) // Use this after the variable declaration
 
 //connec to DB
 connectDB();
