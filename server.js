@@ -10,7 +10,7 @@ app.use(express.json({extended:false}));
 connectDB();
 
 
-const PORT=process.env.PORT || 3000;
+const PORT=process.env.PORT || 5050;
 
 
 app.get("/",(req,res)=>{
