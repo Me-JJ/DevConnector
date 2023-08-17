@@ -21,14 +21,15 @@ router.post("/",[
 async (req,res)=>{
     // console.log("users->",req.body);
     const errors=validationResult(req);
+    // console.log(errors);
 
     if(!errors.isEmpty())
     {
-        console.log("check error");
+        // console.log("check error");
         return res.status(400).json({error:errors.array()});
     }
 
-    // console.log(req.body);
+    // console.log("req->",req.body);
     const {name,email,password}=req.body;
 
     try{
