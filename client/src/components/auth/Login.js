@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { login } from "../../actions/auth";
@@ -26,7 +26,7 @@ const Login = ({ login, isAuthenticated }) => {
 
   //redirect if logged in
   if (isAuthenticated) {
-    window.location.replace("http://localhost:3000/dashboard");
+    return <Navigate to="/dashboard" />;
   }
   return (
     <section className="container">
