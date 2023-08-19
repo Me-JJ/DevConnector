@@ -69,6 +69,7 @@ export const getProfileByID = (userId) => async (dispatch) => {
 // get github repos
 export const getGithubRepos = (username) => async (dispatch) => {
   try {
+    // console.log("username->", username);
     const res = await axios.get(
       `http://localhost:5050/api/profile/github/${username}`
     );
@@ -89,11 +90,13 @@ export const getGithubRepos = (username) => async (dispatch) => {
 export const createProfile =
   (formData, edit = false) =>
   async (dispatch) => {
+    // console.log("formadata=", formData);
     try {
       const res = await axios.post(
         "http://localhost:5050/api/profile",
         formData
       );
+      // console.log("res->data after post-> ", res.data);
 
       dispatch({
         type: GET_PROFILE,

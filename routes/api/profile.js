@@ -49,7 +49,7 @@ router.post(
     }
 
     // res.json(req.body);
-
+    // console.log("at backend req->body---->", req.body);
     //destructuring the req.body
     const {
       company,
@@ -57,7 +57,7 @@ router.post(
       location,
       bio,
       status,
-      githubname,
+      githubusername,
       skills,
       youtube,
       facebook,
@@ -78,7 +78,7 @@ router.post(
     if (location) profileFields.location = location;
     if (bio) profileFields.bio = bio;
     if (status) profileFields.status = status;
-    if (githubname) profileFields.githubname = githubname;
+    if (githubusername) profileFields.githubusername = githubusername;
     if (skills) {
       profileFields.skills = skills.split(",").map((skill) => skill.trim());
     }
@@ -93,6 +93,10 @@ router.post(
     if (linkedin) profileFields.social.linkedin = linkedin;
 
     try {
+      // console.log(
+      //   "\n-----------------\nat backend prfileBody---->",
+      //   profileFields
+      // );
       let profile = await Profile.findOne({ user: req.user.id });
 
       if (profile) {
@@ -102,6 +106,7 @@ router.post(
           { new: true }
         );
 
+        // console.log("\n\nafter findone--->", profile);
         return res.json(profile);
       }
 

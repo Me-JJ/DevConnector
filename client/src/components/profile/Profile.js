@@ -4,6 +4,11 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
 import { getProfileByID } from "../../actions/profile";
+import ProfileTop from "./ProfileTop";
+import ProfileAbout from "./PorfileAbout";
+import ProfileExperience from "./ProfileExperience";
+import ProfileEducation from "./ProfileEducation";
+import ProfileGithub from "./ProfileGithub";
 
 const Profile = ({ getProfileByID, profile: { profile, loading }, auth }) => {
   const { id } = useParams();
@@ -12,6 +17,7 @@ const Profile = ({ getProfileByID, profile: { profile, loading }, auth }) => {
     getProfileByID(id);
   }, [getProfileByID, id]);
 
+  // console.log("is->", profile);
   return (
     <section className="container">
       {profile === null || loading ? (
@@ -30,6 +36,49 @@ const Profile = ({ getProfileByID, profile: { profile, loading }, auth }) => {
             )}
         </>
       )}
+      <div className="profile-grid my-1">
+        {profile !== null && (
+          <>
+            <ProfileTop profile={profile} />
+            <ProfileAbout profile={profile} />
+            <div className="profile-exp bg-white p-2">
+              <h2 className="text-primary">Experience</h2>
+              {profile.experience.length > 0 ? (
+                <>
+                  {profile.experience.map((experience) => (
+                    <ProfileExperience
+                      key={experience._id}
+                      experience={experience}
+                    />
+                  ))}
+                </>
+              ) : (
+                <h4> No experience credentials</h4>
+              )}
+            </div>
+
+            <div className="profile-edu bg-white p-2">
+              <h2 className="text-primary">Education</h2>
+              {profile.education.length > 0 ? (
+                <>
+                  {profile.education.map((education) => (
+                    <ProfileEducation
+                      key={education._id}
+                      education={education}
+                    />
+                  ))}
+                </>
+              ) : (
+                <h4> No education credentials</h4>
+              )}
+            </div>
+
+            {profile.githubusername && (
+              <ProfileGithub username={profile.githubusername} />
+            )}
+          </>
+        )}
+      </div>
     </section>
   );
 };
