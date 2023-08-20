@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 import formatDate from "../../utils/formatDate";
 
 const ProfileExperience = ({
-  experience: { comapny, title, location, current, to, from, description },
+  experience: { company, title, location, current, to, from, description },
 }) => {
   return (
     <div>
-      <h3 className="text-dark">{comapny}</h3>
+      <h3 className="text-dark">{company}</h3>
       <p>
         {formatDate(from)} - {to ? formatDate(to) : "Now"}
       </p>
@@ -15,7 +15,11 @@ const ProfileExperience = ({
         <strong>Position:</strong> {(" ", title)}
       </p>
       <p>
-        <strong>Description:</strong> {description}
+        {description && (
+          <>
+            <strong>Description:</strong> {description}
+          </>
+        )}
       </p>
     </div>
   );

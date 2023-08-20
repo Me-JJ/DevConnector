@@ -18,7 +18,11 @@ const ProfileEducation = ({
         <strong>Field of Study:</strong> {(" ", fieldofstudy)}
       </p>
       <p>
-        <strong>Description:</strong> {description}
+        {description && (
+          <>
+            <strong>Description:</strong> {description}
+          </>
+        )}
       </p>
     </div>
   );

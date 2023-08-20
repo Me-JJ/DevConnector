@@ -10,6 +10,8 @@ const Profiles = ({ getProfiles, profile: { profiles, loading } }) => {
     getProfiles();
   }, [getProfiles]);
 
+  // profiles.map((profile) => console.log(profile));
+
   return (
     <section className="container">
       {loading ? (
