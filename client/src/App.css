@@ -31,14 +31,14 @@ ul {
 }
 
 img {
-  width: 100%;
+  width: 50%;
 }
 
 /* Utilities */
 .container {
   max-width: 1100px;
   margin: auto;
-  overflow: hidden;
+  /* overflow: hidden; */
   padding: 0 2rem;
   margin-top: 6rem;
   margin-bottom: 3rem;
@@ -333,7 +333,7 @@ button {
 /* Landing Page */
 .landing {
   position: relative;
-  background: url("./img/showcase.jpg") no-repeat center center/cover;
+  background: url("../src/img/showcase.jpg") no-repeat center center/cover;
   height: 100vh;
 }
 
@@ -352,12 +352,13 @@ button {
 /* Profiles Page */
 .profile {
   display: grid;
-  grid-template-columns: 2fr 4fr 2fr;
+  grid-template-columns: 2fr 2fr 2fr;
   align-items: center;
   grid-gap: 2rem;
   padding: 1rem;
   line-height: 1.8;
   margin-bottom: 1rem;
+  justify-items: center;
 }
 
 /* Profile Page */
@@ -381,7 +382,7 @@ button {
 }
 
 .profile-top img {
-  width: 250px;
+  width: 24%;
 }
 
 .profile-top .icons a {

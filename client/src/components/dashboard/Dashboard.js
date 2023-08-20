@@ -30,7 +30,7 @@ const Dashboard = ({
           </p>
           {profile != null ? (
             <>
-              <DashboardActions />
+              <DashboardActions user={user} />
               <Experience experience={profile.experience} />
               <Education education={profile.education} />
             </>
