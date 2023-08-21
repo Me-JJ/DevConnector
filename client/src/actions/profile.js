@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../utils/api";
 // eslint-disable-next-line
 import { setAlert } from "./alert";
 
@@ -10,12 +10,13 @@ import {
   CLEAR_PROFILE,
   GET_PROFILES,
   GET_REPOS,
+  NO_REPOS,
 } from "./types";
 
 //get the current user profile
 export const getCurrentProfile = () => async (dispatch) => {
   try {
-    const res = await axios.get("http://localhost:5050/api/profile/me");
+    const res = await api.get("http://localhost:5050/api/profile/me");
     dispatch({
       type: GET_PROFILE,
       payload: res.data,
@@ -33,7 +34,7 @@ export const getCurrentProfile = () => async (dispatch) => {
 export const getProfiles = () => async (dispatch) => {
   dispatch({ type: CLEAR_PROFILE });
   try {
-    const res = await axios.get("http://localhost:5050/api/profile");
+    const res = await api.get("http://localhost:5050/api/profile");
     dispatch({
       type: GET_PROFILES,
       payload: res.data,
@@ -50,7 +51,7 @@ export const getProfiles = () => async (dispatch) => {
 // get all profile by ID
 export const getProfileByID = (userId) => async (dispatch) => {
   try {
-    const res = await axios.get(
+    const res = await api.get(
       `http://localhost:5050/api/profile/user/${userId}`
     );
     dispatch({
@@ -70,7 +71,7 @@ export const getProfileByID = (userId) => async (dispatch) => {
 export const getGithubRepos = (username) => async (dispatch) => {
   try {
     // console.log("username->", username);
-    const res = await axios.get(
+    const res = await api.get(
       `http://localhost:5050/api/profile/github/${username}`
     );
 
@@ -80,8 +81,7 @@ export const getGithubRepos = (username) => async (dispatch) => {
     });
   } catch (err) {
     dispatch({
-      type: PROFILE_ERROR,
-      payload: { msg: err.response.statusText, status: err.response.status },
+      type: NO_REPOS,
     });
   }
 };
@@ -92,10 +92,7 @@ export const createProfile =
   async (dispatch) => {
     // console.log("formadata=", formData);
     try {
-      const res = await axios.post(
-        "http://localhost:5050/api/profile",
-        formData
-      );
+      const res = await api.post("http://localhost:5050/api/profile", formData);
       // console.log("res->data after post-> ", res.data);
 
       dispatch({
@@ -124,7 +121,7 @@ export const createProfile =
 
 export const addExperience = (formData) => async (dispatch) => {
   try {
-    const res = await axios.put(
+    const res = await api.put(
       "http://localhost:5050/api/profile/experience",
       formData
     );
@@ -153,7 +150,7 @@ export const addExperience = (formData) => async (dispatch) => {
 
 export const addEducation = (formData) => async (dispatch) => {
   try {
-    const res = await axios.put(
+    const res = await api.put(
       "http://localhost:5050/api/profile/education",
       formData
     );
@@ -181,7 +178,7 @@ export const addEducation = (formData) => async (dispatch) => {
 //delete Experience
 export const deleteExperience = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(
+    const res = await api.delete(
       `http://localhost:5050/api/profile/experience/${id}`
     );
 
@@ -202,7 +199,7 @@ export const deleteExperience = (id) => async (dispatch) => {
 //delete Education
 export const deleteEducation = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(
+    const res = await api.delete(
       `http://localhost:5050/api/profile/education/${id}`
     );
 
@@ -224,7 +221,7 @@ export const deleteEducation = (id) => async (dispatch) => {
 export const deleteAccount = () => async (dispatch) => {
   if (window.confirm("Are you sure? This can NOT be undone!")) {
     try {
-      await axios.delete(`http://localhost:5050/api/profile`);
+      await api.delete(`http://localhost:5050/api/profile`);
 
       dispatch({
         type: CLEAR_PROFILE,

@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../utils/api";
 import { setAlert } from "./alert";
 import {
   GET_POSTS,
@@ -14,7 +14,7 @@ import {
 // GET POSTS
 export const getPosts = () => async (dispatch) => {
   try {
-    const res = await axios.get("http://localhost:5050/api/posts");
+    const res = await api.get("http://localhost:5050/api/posts");
 
     dispatch({
       type: GET_POSTS,
@@ -31,7 +31,7 @@ export const getPosts = () => async (dispatch) => {
 //add like
 export const addLike = (id) => async (dispatch) => {
   try {
-    const res = await axios.put(`http://localhost:5050/api/posts/like/${id}`);
+    const res = await api.put(`http://localhost:5050/api/posts/like/${id}`);
 
     dispatch({
       type: UPDATE_LIKES,
@@ -48,7 +48,7 @@ export const addLike = (id) => async (dispatch) => {
 //remove like
 export const removeLike = (id) => async (dispatch) => {
   try {
-    const res = await axios.put(`http://localhost:5050/api/posts/unlike/${id}`);
+    const res = await api.put(`http://localhost:5050/api/posts/unlike/${id}`);
     // console.log("removelike->", res.data);
     dispatch({
       type: UPDATE_LIKES,
@@ -66,7 +66,7 @@ export const removeLike = (id) => async (dispatch) => {
 //delete post
 export const deletePost = (id) => async (dispatch) => {
   try {
-    const res = await axios.delete(`http://localhost:5050/api/posts/${id}`);
+    await api.delete(`http://localhost:5050/api/posts/${id}`);
 
     dispatch({
       type: DELETE_POST,
@@ -86,7 +86,7 @@ export const deletePost = (id) => async (dispatch) => {
 //ADD post
 export const addPost = (formData) => async (dispatch) => {
   try {
-    const res = await axios.post(`http://localhost:5050/api/posts/`, formData);
+    const res = await api.post(`http://localhost:5050/api/posts/`, formData);
     // console.log("removelike->", res.data);
     dispatch({
       type: ADD_POST,
@@ -106,7 +106,7 @@ export const addPost = (formData) => async (dispatch) => {
 //Get post
 export const getPost = (id) => async (dispatch) => {
   try {
-    const res = await axios.get(`http://localhost:5050/api/posts/${id}`);
+    const res = await api.get(`http://localhost:5050/api/posts/${id}`);
 
     dispatch({
       type: GET_POST,
@@ -124,7 +124,7 @@ export const getPost = (id) => async (dispatch) => {
 //add Comment
 export const addComment = (postId, formData) => async (dispatch) => {
   try {
-    const res = await axios.post(
+    const res = await api.post(
       `http://localhost:5050/api/posts/comment/${postId}`,
       formData
     );
@@ -147,7 +147,7 @@ export const addComment = (postId, formData) => async (dispatch) => {
 //Delete Comment
 export const deleteComment = (postId, commentId) => async (dispatch) => {
   try {
-    await axios.delete(
+    await api.delete(
       `http://localhost:5050/api/posts/comment/${postId}/${commentId}`
     );
     dispatch({

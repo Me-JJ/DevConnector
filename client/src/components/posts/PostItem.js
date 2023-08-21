@@ -56,7 +56,6 @@ const PostItem = ({
                 <i className="fas fa-times"></i>
               </button>
             )}
-            ;
           </>
         )}
       </div>

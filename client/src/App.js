@@ -16,6 +16,7 @@ import Profiles from "./components/profiles/Profiles";
 import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
 import NotFound from "./components/layout/NotFound";
+import { LOGOUT } from "./actions/types";
 //read both names again
 import Profile from "./components/profile/Profile";
 
@@ -29,10 +30,18 @@ import setAuthToken from "./utils/setAuthToken";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
-
-function App() {
+const App = () => {
   useEffect(() => {
+    // check for token in LS
+    if (localStorage.token) {
+      setAuthToken(localStorage.token);
+    }
     store.dispatch(loadUser());
+
+    // log user out from all tabs if they log out in one tab
+    window.addEventListener("storage", () => {
+      if (!localStorage.token) store.dispatch({ type: LOGOUT });
+    });
   }, []);
 
   return (
@@ -76,6 +85,6 @@ function App() {
       </Router>
     </Provider>
   );
-}
+};
 
 export default App;

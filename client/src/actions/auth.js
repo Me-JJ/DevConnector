@@ -1,4 +1,4 @@
-import axios from "axios";
+import api from "../utils/api";
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
@@ -10,16 +10,12 @@ import {
   CLEAR_PROFILE,
 } from "./types";
 import { setAlert } from "./alert";
-import setAuthToken from "../utils/setAuthToken";
 
 //load user
 export const loadUser = () => async (dispatch) => {
-  if (localStorage.token) {
-    setAuthToken(localStorage.token);
-  }
   // console.log(localStorage);
   try {
-    const res = await axios.get("http://localhost:5050/api/auth");
+    const res = await api.get("http://localhost:5050/api/auth");
     // console.log("res->data=>", res.data);
     dispatch({
       type: USER_LOADED,
@@ -48,7 +44,7 @@ export const register =
     };
     try {
       //   console.log("body->", body);
-      const res = await axios.post(
+      const res = await api.post(
         "http://localhost:5050/api/users",
         body,
         config
@@ -89,7 +85,7 @@ export const login =
     };
     try {
       // console.log("body->", body);
-      const res = await axios.post(
+      const res = await api.post(
         "http://localhost:5050/api/auth",
         body,
         config
